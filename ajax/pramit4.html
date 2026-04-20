@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>XSLT Transformation</title>
+</head>
+<body>
+
+<h2>Products (XML → XSLT → HTML)</h2>
+
+<button onclick="loadXML()">Load Products</button>
+
+<div id="output"></div>
+
+<script>
+function loadXML() {
+    let xhttp = new XMLHttpRequest();
+
+    // Load XML file
+    xhttp.open("GET", "products.xml", true);
+    xhttp.send();
+
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+
+            let xml = this.responseXML;
+
+            // Load XSL file
+            let xslhttp = new XMLHttpRequest();
+            xslhttp.open("GET", "products.xsl", true);
+            xslhttp.send();
+
+            xslhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+
+                    let xsl = this.responseXML;
+
+                    // XSLT Processor
+                    let xsltProcessor = new XSLTProcessor();
+                    xsltProcessor.importStylesheet(xsl);
+
+                    let resultDocument = xsltProcessor.transformToFragment(xml, document);
+
+                    document.getElementById("output").innerHTML = "";
+                    document.getElementById("output").appendChild(resultDocument);
+                }
+            };
+        }
+    };
+}
+</script>
+
+</body>
+</html>

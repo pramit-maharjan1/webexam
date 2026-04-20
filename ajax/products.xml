@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="products.xsl"?>
+
+<products>
+    <product>
+        <id>1</id>
+        <name>Laptop</name>
+        <price>80000</price>
+        <brand>Dell</brand>
+    </product>
+
+    <product>
+        <id>2</id>
+        <name>Mobile</name>
+        <price>30000</price>
+        <brand>Samsung</brand>
+    </product>
+
+    <product>
+        <id>3</id>
+        <name>Headphones</name>
+        <price>5000</price>
+        <brand>Sony</brand>
+    </product>
+</products>

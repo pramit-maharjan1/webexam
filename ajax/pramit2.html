@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form to XML Generator</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        input { display: block; margin: 10px 0; padding: 6px; }
+        pre { background: #f4f4f4; padding: 10px; }
+    </style>
+</head>
+<body>
+
+<h2>User Information Form</h2>
+
+<form id="userForm">
+    <label>Name:</label>
+    <input type="text" id="name" required>
+
+    <label>Email:</label>
+    <input type="email" id="email" required>
+
+    <button type="submit">Generate XML</button>
+</form>
+
+<h3>Generated XML:</h3>
+<pre id="output"></pre>
+
+<script>
+document.getElementById("userForm").addEventListener("submit", function(e) {
+    e.preventDefault(); // prevent page refresh
+
+    // Get form values
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+
+    // Create XML structure
+    let xml =
+`<?xml version="1.0" encoding="UTF-8"?>
+<user>
+    <name>${name}</name>
+    <email>${email}</email>
+</user>`;
+
+    // Display XML on page
+    document.getElementById("output").textContent = xml;
+});
+</script>
+
+</body>
+</html>

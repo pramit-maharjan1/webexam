@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>XML Tree Manipulation</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        button { margin: 5px; padding: 8px; }
+        pre { background: #f4f4f4; padding: 10px; }
+    </style>
+</head>
+<body>
+
+<h2>XML Tree Manipulation using JavaScript</h2>
+
+<button onclick="addBook()">Add Book</button>
+<button onclick="modifyAttribute()">Modify Attribute</button>
+<button onclick="removeBook()">Remove Book</button>
+
+<h3>XML Output:</h3>
+<pre id="output"></pre>
+
+<script>
+    // 1. Create XML Document (initial tree)
+    let parser = new DOMParser();
+    let serializer = new XMLSerializer();
+
+    let xmlString = `
+    <library>
+        <book id="1" category="programming">
+            <title>Clean Code</title>
+            <author>Robert Martin</author>
+        </book>
+
+        <book id="2" category="web">
+            <title>JavaScript Guide</title>
+            <author>John Doe</author>
+        </book>
+    </library>`;
+
+    let xmlDoc = parser.parseFromString(xmlString, "text/xml");
+
+    // Function to display XML
+    function showXML() {
+        document.getElementById("output").textContent =
+            serializer.serializeToString(xmlDoc);
+    }
+
+    showXML();
+
+    // 2. Add new element
+    function addBook() {
+        let newBook = xmlDoc.createElement("book");
+        newBook.setAttribute("id", "3");
+        newBook.setAttribute("category", "database");
+
+        let title = xmlDoc.createElement("title");
+        title.textContent = "MySQL Basics";
+
+        let author = xmlDoc.createElement("author");
+        author.textContent = "Jane Smith";
+
+        newBook.appendChild(title);
+        newBook.appendChild(author);
+
+        xmlDoc.documentElement.appendChild(newBook);
+
+        showXML();
+    }
+
+    // 3. Modify attribute
+    function modifyAttribute() {
+        let firstBook = xmlDoc.getElementsByTagName("book")[0];
+        firstBook.setAttribute("category", "software-engineering");
+
+        showXML();
+    }
+
+    // 4. Remove element
+    function removeBook() {
+        let books = xmlDoc.getElementsByTagName("book");
+
+        if (books.length > 0) {
+            xmlDoc.documentElement.removeChild(books[0]);
+        }
+
+        showXML();
+    }
+</script>
+
+</body>
+</html>
